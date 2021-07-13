@@ -6,6 +6,8 @@ import (
 	"bytes"
 	"encoding/binary"
 	"math"
+	"math/rand"
+	"time"
 )
 
 // ToFixed keep special precision for input num
@@ -88,4 +90,16 @@ func Byte2IntLittleEndian(data []byte) (int, error) {
 		return i2, err
 	}
 	return i2, nil
+}
+
+// RandInt rand int in [min, max)
+func RandInt(min, max int64) int64 {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return r.Int63n(max-min) + min
+}
+
+// RandFloat rand float64 in [min, max)
+func RandFloat(min, max float64) float64 {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return min + r.Float64()*(max-min)
 }
